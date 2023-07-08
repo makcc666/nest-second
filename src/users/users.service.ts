@@ -13,13 +13,13 @@ export class UsersService {
 	async createUser(dto: CreateUserDto): Promise<User> {
 		const user = await this.userRepository.create(dto);
 		const role = await this.rolesService.getRoleByValue(DEFAULT_USER_ROLE);
-		await user.$set<User>('roles', [role.id]);
-		return user;
+		await user.$set('roles', [role.id]);
 
+		return user;
 	}
 
 	async getAllUsers(): Promise<User[]> {
-		const users = await this.userRepository.findAll();
+		const users = await this.userRepository.findAll({ include: { all: true } });
 		return users;
 	}
 }
