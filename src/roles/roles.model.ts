@@ -8,6 +8,11 @@ interface RoleCreationAttrs {
 	description: string;
 }
 
+export enum RolesList {
+	admin = 'ADMIN', user = 'USER',
+}
+
+
 @Table({ tableName: 'roles' })
 export class Role extends Model<Role, RoleCreationAttrs> {
 	@ApiProperty({ example: '1', description: 'Unic ID' }) @Column({
@@ -16,14 +21,13 @@ export class Role extends Model<Role, RoleCreationAttrs> {
 
 	@ApiProperty({ example: 'ADMIN', description: 'Значение роли пользователя' }) @Column({
 		type: DataType.STRING, unique: true,
-	}) value: string;
+	}) value: RolesList;
 
 	@ApiProperty({ example: 'Администратор', description: 'Описание роли' }) @Column({
 		type: DataType.STRING, allowNull: false,
 	}) description: string;
 
-@BelongsToMany(()=>User,()=>UserRoles)
-	users:User[]
+	@BelongsToMany(() => User, () => UserRoles) users: User[];
 
 }
 
