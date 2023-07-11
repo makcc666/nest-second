@@ -20,7 +20,7 @@ export class UsersController {
 	}
 
 	// @UseGuards(JwtAuthGuard)
-	@Roles(RolesList.admin)
+	@Roles(RolesList.admin, RolesList.user)
 	@UseGuards(RolesGuard)
 	@ApiOperation({summary:'Получение всех пользователей'})
 	@ApiResponse({status:200,type:[User]})

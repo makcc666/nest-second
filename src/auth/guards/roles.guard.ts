@@ -1,6 +1,8 @@
-import { CanActivate, ExecutionContext, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { ROLES_KEY_GUARD, USER_INVALID_DATA_OF_AUTHORIZED_ERROR, USER_IS_NOT_AUTHORIZED_ERROR } from '../auth.constants';
+import {
+	ROLES_KEY_GUARD, USER_INVALID_DATA_OF_AUTHORIZED_ERROR, USER_IS_NOT_AUTHORIZED_ERROR, USER_PERMISSION_ACCESS_DENY_ERROR,
+} from '../auth.constants';
 import { Reflector } from '@nestjs/core';
 import { Role, RolesList } from '../../roles/roles.model';
 import { User } from '../../users/user.model';
@@ -32,7 +34,7 @@ export class RolesGuard implements CanActivate {
 			throw new UnauthorizedException(USER_IS_NOT_AUTHORIZED_ERROR);
 		}
 
-		if (!req.user[ROLES_KEY_GUARD].some(role => requiredRoles.includes(role.value))) throw new UnauthorizedException(USER_IS_NOT_AUTHORIZED_ERROR);
+		if (!req.user[ROLES_KEY_GUARD].some(role => requiredRoles.includes(role.value))) throw new ForbiddenException(USER_PERMISSION_ACCESS_DENY_ERROR);
 		return true;
 	}
 
