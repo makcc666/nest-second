@@ -2,14 +2,15 @@ import { CanActivate, ExecutionContext, Injectable, Logger, UnauthorizedExceptio
 import { JwtService } from '@nestjs/jwt';
 import { ROLES_KEY_GUARD, USER_INVALID_DATA_OF_AUTHORIZED_ERROR, USER_IS_NOT_AUTHORIZED_ERROR } from '../auth.constants';
 import { Reflector } from '@nestjs/core';
-import { Role } from '../../roles/roles.model';
+import { Role, RolesList } from '../../roles/roles.model';
+import { User } from '../../users/user.model';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
 	constructor(private readonly jwtService: JwtService, private readonly reflector: Reflector) {}
 
 	canActivate(context: ExecutionContext): boolean {
-		const requiredRoles = this.reflector.getAllAndOverride(ROLES_KEY_GUARD, [
+		const requiredRoles: RolesList[] = this.reflector.getAllAndOverride(ROLES_KEY_GUARD, [
 			context.getHandler(),
 			context.getClass(),
 		]);
@@ -26,12 +27,13 @@ export class RolesGuard implements CanActivate {
 
 		try {
 			req.user = this.jwtService.verify(token);
-			console.log("req.user[ROLES_KEY_GUARD]::",req.user[ROLES_KEY_GUARD]);
-			return req.user[ROLES_KEY_GUARD].some(role => requiredRoles.includes(role.value));
 		}
 		catch {
 			throw new UnauthorizedException(USER_IS_NOT_AUTHORIZED_ERROR);
 		}
+
+		if (!req.user[ROLES_KEY_GUARD].some(role => requiredRoles.includes(role.value))) throw new UnauthorizedException(USER_IS_NOT_AUTHORIZED_ERROR);
+		return true;
 	}
 
 }
