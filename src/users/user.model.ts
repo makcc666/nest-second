@@ -28,7 +28,7 @@ export class User extends Model<User, UserCreationAttrs> {
 
 	@ApiProperty({ example: 'Совершил критичную ошибку', description: 'Причина бана' }) @Column({
 		type: DataType.STRING, allowNull: true,
-	}) basReason: string;
+	}) banReason: string;
 
 	@BelongsToMany(()=>Role,()=>UserRoles)
 	roles:Role[]
