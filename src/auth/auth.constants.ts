@@ -9,3 +9,4 @@ export const USER_PERMISSION_ACCESS_DENY_ERROR = 'Нет доступа';
 export const USER_INVALID_DATA_OF_AUTHORIZED_ERROR = 'Невалидные данные для авторизации';
 
 export const ROLES_KEY_GUARD:keyof User = 'roles';
+

@@ -1,4 +1,4 @@
-import { RolesList } from '../roles.model';
+import { RolesList } from '../../roles/roles.model';
 
 export class AddRoleDto {
 	readonly value:RolesList;

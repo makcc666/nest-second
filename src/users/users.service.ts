@@ -4,8 +4,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from '../roles/roles.service';
 import { DEFAULT_USER_ROLE } from '../roles/roles.constants';
-import { AddRoleDto } from '../roles/dto/add-role.dto';
-import { BanUserDto } from '../roles/dto/ban-user.dto';
+import { AddRoleDto } from './dto/add-role.dto';
+import { BanUserDto } from './dto/ban-user.dto';
 import { ADD_ROLE_TO_USER_NOT_FOUND_ERROR, USER_BY_ID_NOT_FOUND_ERROR } from './user.constants';
 
 @Injectable()
