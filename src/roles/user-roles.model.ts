@@ -1,5 +1,4 @@
 import { BelongsToMany, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
-import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../users/user.model';
 import { Role } from './roles.model';
 
@@ -16,7 +15,7 @@ export class UserRoles extends Model<UserRoles> {
 
 	@ForeignKey(()=>User)
 	@Column({
-		type: DataType.NUMBER,
+		type: DataType.INTEGER,
 	}) userId: number;
 
 }

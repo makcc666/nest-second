@@ -15,7 +15,7 @@ export enum RolesList {
 
 @Table({ tableName: 'roles' })
 export class Role extends Model<Role, RoleCreationAttrs> {
-	@ApiProperty({ example: '1', description: 'Unic ID' }) @Column({
+	@ApiProperty({ example: '1', description: 'Unique ID' }) @Column({
 		type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true,
 	}) id: number;
 
